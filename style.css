@@ -1,3 +1,4 @@
+/* Variables de couleurs */
 :root {
     --primary-color: #1e4d2b;
     --background-color: #2d7742;
@@ -6,6 +7,7 @@
     --black-suit-color: #2c3e50;
 }
 
+/* Styles généraux */
 body {
     font-family: 'Arial', sans-serif;
     background: linear-gradient(135deg, var(--background-color) 0%, #1e4d2b 100%);
@@ -19,6 +21,7 @@ body {
     margin: 0 auto;
 }
 
+/* Titres */
 h1 {
     text-align: center;
     color: #fff;
@@ -26,6 +29,14 @@ h1 {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+.player-title {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin: 0 0 1rem 0;
+    text-align: center;
+}
+
+/* Zone de jeu */
 .game-area {
     background-color: var(--card-color);
     border-radius: 15px;
@@ -35,16 +46,31 @@ h1 {
 
 .dealer-area, .player-area {
     margin-bottom: 2rem;
-    padding: 1rem;
+    padding: 1.5rem;
     border-radius: 10px;
     background-color: rgba(45, 119, 66, 0.1);
+    position: relative;
 }
 
+.dealer-area::before, .player-area::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--primary-color);
+    border-radius: 10px 10px 0 0;
+    opacity: 0.3;
+}
+
+/* Cartes */
 .cards {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
     min-height: 160px;
+    justify-content: center;
 }
 
 .card {
@@ -111,14 +137,23 @@ h1 {
     font-size: 2.5rem;
 }
 
+/* Score */
 .score {
     font-size: 1.3rem;
     font-weight: bold;
     color: var(--primary-color);
     padding: 0.5rem;
+    text-align: center;
+    margin-top: 1rem;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
     display: inline-block;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
+/* Contrôles */
 .controls {
     display: flex;
     gap: 1rem;
@@ -135,6 +170,11 @@ button {
     color: white;
     cursor: pointer;
     transition: all 0.3s;
+    min-width: 150px;
+}
+
+.action-button {
+    background-color: #2980b9;
 }
 
 button:hover:not(:disabled) {
@@ -142,19 +182,29 @@ button:hover:not(:disabled) {
     transform: translateY(-2px);
 }
 
+.action-button:hover:not(:disabled) {
+    background-color: #3498db;
+}
+
 button:disabled {
     background-color: #ccc;
     cursor: not-allowed;
+    transform: none;
 }
 
+/* Messages */
 .message {
     text-align: center;
     margin-top: 1.5rem;
     font-size: 1.3rem;
     font-weight: bold;
     min-height: 2rem;
+    padding: 1rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.7);
 }
 
+/* Styles pour les écrans moyens */
 @media (max-width: 768px) {
     .card {
         width: 90px;
@@ -163,9 +213,61 @@ button:disabled {
     
     .controls {
         flex-direction: column;
+        align-items: center;
     }
     
     button {
         width: 100%;
+        max-width: 300px;
+    }
+}
+
+/* Styles pour les petits écrans */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 10px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .player-title {
+        font-size: 1.2rem;
+    }
+
+    .game-area {
+        padding: 1rem;
+    }
+
+    .dealer-area, .player-area {
+        padding: 1rem;
+    }
+
+    .card {
+        width: 70px;
+        height: 100px;
+    }
+
+    .card-value {
+        font-size: 1rem;
+    }
+
+    .card-suit {
+        font-size: 2rem;
+    }
+
+    .score {
+        font-size: 1rem;
+    }
+
+    button {
+        font-size: 1rem;
+        padding: 0.6rem 1rem;
+    }
+
+    .message {
+        font-size: 1rem;
+        padding: 0.8rem;
     }
 }
