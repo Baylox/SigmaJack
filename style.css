@@ -1,0 +1,148 @@
+:root {
+    --primary-color: #1e4d2b;
+    --background-color: #2d7742;
+    --card-color: #fff;
+    --red-suit-color: #e74c3c;
+    --black-suit-color: #2c3e50;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, var(--background-color) 0%, #1e4d2b 100%);
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.game-area {
+    background-color: var(--card-color);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.dealer-area, .player-area {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border-radius: 10px;
+    background-color: rgba(45, 119, 66, 0.1);
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    min-height: 160px;
+}
+
+.card {
+    width: 120px;
+    height: 160px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card.red { color: var(--red-suit-color); }
+.card.black { color: var(--black-suit-color); }
+
+.card-value {
+    position: absolute;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.card-value.top-left {
+    top: 0.8rem;
+    left: 0.8rem;
+}
+
+.card-value.bottom-right {
+    bottom: 0.8rem;
+    right: 0.8rem;
+    transform: rotate(180deg);
+}
+
+.card-suit {
+    font-size: 2.5rem;
+}
+
+.score {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    padding: 0.5rem;
+    display: inline-block;
+}
+
+.controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+button:hover:not(:disabled) {
+    background-color: #2a6b3c;
+    transform: translateY(-2px);
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.message {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 1.3rem;
+    font-weight: bold;
+    min-height: 2rem;
+}
+
+@media (max-width: 768px) {
+    .card {
+        width: 90px;
+        height: 120px;
+    }
+    
+    .controls {
+        flex-direction: column;
+    }
+    
+    button {
+        width: 100%;
+    }
+}
