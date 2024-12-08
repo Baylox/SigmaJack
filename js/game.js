@@ -36,12 +36,6 @@ export class BlackjackGame {
         this.playerHand = [this.deck.draw(), this.deck.draw()];
         this.dealerHand = [this.deck.draw(), this.deck.draw()];
         this.updateUI();
-
-        // Vérifier le Blackjack initial
-        if (this.calculateScore(this.playerHand) === 21) {
-            this.gameOver = true;
-            return 'blackjack';
-        }
     }
 
     playerHit() {
@@ -51,11 +45,7 @@ export class BlackjackGame {
         const score = this.calculateScore(this.playerHand);
         
         if (score > 21) {
-            this.gameOver = true;
             return 'bust';
-        } else if (score === 21) {
-            this.gameOver = true;
-            return 'blackjack';
         }
         
         return 'continue';
@@ -65,19 +55,19 @@ export class BlackjackGame {
         const playerScore = this.calculateScore(this.playerHand);
         let dealerScore = this.calculateScore(this.dealerHand);
 
-        while (true) {
-            // Si le joueur a plus de 16, le croupier essaie de le battre ou de faire égalité
+        while (dealerScore < 21) {
+            // Si le joueur a plus de 16, le croupier essaie de le battre
             if (playerScore > 16) {
-                if (dealerScore < playerScore) {
+                if (dealerScore <= playerScore) {
                     this.dealerHand.push(this.deck.draw());
                     dealerScore = this.calculateScore(this.dealerHand);
                     this.updateUI();
                     await new Promise(resolve => setTimeout(resolve, 500));
                 } else {
-                    break; // Le croupier a atteint ou dépassé le score du joueur
+                    break; // Le croupier a dépassé le score du joueur
                 }
             }
-            // Sinon, le croupier s'arrête à 16
+            // Sinon, le croupier s'arrête à 17
             else if (dealerScore < 17) {
                 this.dealerHand.push(this.deck.draw());
                 dealerScore = this.calculateScore(this.dealerHand);
@@ -100,7 +90,6 @@ export class BlackjackGame {
 
         if (playerScore > 21) return 'dealer';
         if (dealerScore > 21) return 'player';
-        if (playerScore === 21 && this.playerHand.length === 2) return 'blackjack';
         if (playerScore > dealerScore) return 'player';
         if (dealerScore > playerScore) return 'dealer';
         return 'tie';
