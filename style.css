@@ -9,7 +9,6 @@
 
 /* Styles généraux */
 body {
-    font-family: 'Arial', sans-serif;
     background: linear-gradient(135deg, var(--background-color) 0%, #1e4d2b 100%);
     min-height: 100vh;
     margin: 0;
@@ -45,7 +44,6 @@ h1 {
 }
 
 .dealer-area, .player-area {
-    margin-bottom: 2rem;
     padding: 1.5rem;
     border-radius: 10px;
     background: linear-gradient(135deg, rgba(45, 119, 66, 0.1), rgba(255, 255, 255, 0.1));
