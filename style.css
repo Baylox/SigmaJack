@@ -48,8 +48,15 @@ h1 {
     margin-bottom: 2rem;
     padding: 1.5rem;
     border-radius: 10px;
-    background-color: rgba(45, 119, 66, 0.1);
+    background: linear-gradient(135deg, rgba(45, 119, 66, 0.1), rgba(255, 255, 255, 0.1));
     position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.dealer-area:hover, .player-area:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .dealer-area::before, .player-area::before {
@@ -61,9 +68,13 @@ h1 {
     height: 4px;
     background: var(--primary-color);
     border-radius: 10px 10px 0 0;
-    opacity: 0.3;
+    opacity: 0.5;
+    transition: opacity 0.3s;
 }
 
+.dealer-area:hover::before, .player-area:hover::before {
+    opacity: 1;
+}
 /* Cartes */
 .cards {
     display: flex;
@@ -187,7 +198,7 @@ button:hover:not(:disabled) {
 }
 
 button:disabled {
-    background-color: #ccc;
+    background-color: #7f8c8d;
     cursor: not-allowed;
     transform: none;
 }
@@ -201,7 +212,6 @@ button:disabled {
     min-height: 2rem;
     padding: 1rem;
     border-radius: 8px;
-    background: rgba(255, 255, 255, 0.7);
 }
 
 /* Styles pour les écrans moyens */
