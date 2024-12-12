@@ -62,13 +62,13 @@ export async function handleStand() {
     const winner = game.determineWinner();
     switch(winner) {
         case 'player':
-            displayMessage('Vous avez gagné !');
+            displayMessage('Vous avez gagné ! 🎉');
             break;
         case 'dealer':
-            displayMessage('Le croupier gagne !');
+            displayMessage('Le croupier gagne ! 🎲');
             break;
         case 'tie':
-            displayMessage('Égalité !');
+            displayMessage('Égalité ! 🤝');
             break;
     }
 }
@@ -80,7 +80,7 @@ export function handleHit() {
     
     if (result === 'bust') {
         game.gameOver = true;
-        displayMessage('Perdu ! Vous avez dépassé 21.');
+        displayMessage('Perdu ! Vous avez dépassé 21. ❌');
         updateControls(true);
         updateUI(false);
     } else {
