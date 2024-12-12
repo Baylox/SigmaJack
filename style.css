@@ -1,78 +1,84 @@
-/* Variables de couleurs */
+/* Variables de couleurs et thème */
 :root {
-    --primary-color: #1e4d2b;
+    --primary-color: #1a472a;
+    --secondary-color: #2c3e50;
+    --accent-color: #c0392b;
+    --gold: #f1c40f;
     --background-color: #2d7742;
     --card-color: #fff;
     --red-suit-color: #e74c3c;
     --black-suit-color: #2c3e50;
+    --shadow-color: rgba(0, 0, 0, 0.2);
 }
 
 /* Styles généraux */
 body {
-    background: linear-gradient(135deg, var(--background-color) 0%, #1e4d2b 100%);
+    font-family: 'Playfair Display', serif;
+    background: radial-gradient(circle at center, var(--background-color) 0%, var(--primary-color) 100%);
     min-height: 100vh;
     margin: 0;
     padding: 20px;
 }
 
 .container {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
-/* Titres */
+/* Titre principal */
 h1 {
     text-align: center;
-    color: #fff;
+    color: var(--gold);
     margin-bottom: 2rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    position: relative;
 }
 
-.player-title {
-    color: var(--primary-color);
+h1::after {
+    content: '♠ ♣ ♥ ♦';
+    display: block;
     font-size: 1.5rem;
-    margin: 0 0 1rem 0;
-    text-align: center;
+    color: var(--gold);
+    opacity: 0.8;
+    margin-top: 0.5rem;
 }
 
 /* Zone de jeu */
 .game-area {
-    background-color: var(--card-color);
+    background: linear-gradient(135deg, #234e52 0%, #1a472a 100%);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 2px solid var(--gold);
+}
+
+/* Zones joueur/croupier */
+.dealer-area, .player-area {
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 15px;
     padding: 2rem;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.dealer-area, .player-area {
-    padding: 1.5rem;
-    border-radius: 10px;
-    background: linear-gradient(135deg, rgba(45, 119, 66, 0.1), rgba(255, 255, 255, 0.1));
+    margin-bottom: 2rem;
     position: relative;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(241, 196, 15, 0.3);
 }
 
-.dealer-area:hover, .player-area:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+.player-title {
+    color: var(--gold);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-.dealer-area::before, .player-area::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: var(--primary-color);
-    border-radius: 10px 10px 0 0;
-    opacity: 0.5;
-    transition: opacity 0.3s;
+.player-title i {
+    margin-right: 10px;
+    color: var(--gold);
 }
 
-.dealer-area:hover::before, .player-area:hover::before {
-    opacity: 1;
-}
 /* Cartes */
 .cards {
     display: flex;
@@ -80,6 +86,9 @@ h1 {
     gap: 1rem;
     min-height: 160px;
     justify-content: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
 }
 
 .card {
@@ -93,28 +102,6 @@ h1 {
     align-items: center;
     position: relative;
     transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.card.hidden .card-back {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, #2c3e50 25%, #34495e 25%, #34495e 50%, #2c3e50 50%, #2c3e50 75%, #34495e 75%);
-    background-size: 20px 20px;
-    border-radius: 10px;
-    border: 8px solid white;
-    box-sizing: border-box;
-    animation: cardFlip 0.3s ease-out;
-}
-
-@keyframes cardFlip {
-    from {
-        transform: rotateY(180deg);
-        opacity: 0;
-    }
-    to {
-        transform: rotateY(0);
-        opacity: 1;
-    }
 }
 
 .card:hover {
@@ -146,136 +133,157 @@ h1 {
     font-size: 2.5rem;
 }
 
+.card.hidden .card-back {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #2c3e50 25%, #34495e 25%, #34495e 50%, #2c3e50 50%, #2c3e50 75%, #34495e 75%);
+    background-size: 20px 20px;
+    border-radius: 10px;
+    border: 8px solid white;
+    box-sizing: border-box;
+    animation: cardFlip 0.3s ease-out;
+}
+
 /* Score */
 .score {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     font-weight: bold;
-    color: var(--primary-color);
-    padding: 0.5rem;
-    text-align: center;
-    margin-top: 1rem;
-    background: rgba(255, 255, 255, 0.7);
-    border-radius: 5px;
+    color: var(--gold);
+    padding: 0.8rem 1.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
     display: inline-block;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
+    margin-top: 1.5rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(241, 196, 15, 0.3);
 }
 
 /* Contrôles */
 .controls {
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
     justify-content: center;
     margin-top: 2rem;
 }
 
 button {
-    padding: 0.8rem 1.5rem;
-    font-size: 1.1rem;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
     border: none;
-    border-radius: 8px;
-    background-color: var(--primary-color);
+    border-radius: 10px;
     color: white;
     cursor: pointer;
     transition: all 0.3s;
-    min-width: 150px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    min-width: 180px;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Playfair Display', serif;
 }
 
-.action-button {
-    background-color: #2980b9;
+button i {
+    margin-right: 8px;
+}
+
+#hit-button, #stand-button {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    border: 2px solid #c0392b;
+}
+
+#new-game-button {
+    background: linear-gradient(135deg, #27ae60 0%, #219a52 100%);
+    border: 2px solid #219a52;
 }
 
 button:hover:not(:disabled) {
-    background-color: #2a6b3c;
-    transform: translateY(-2px);
-}
-
-.action-button:hover:not(:disabled) {
-    background-color: #3498db;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 button:disabled {
-    background-color: #7f8c8d;
+    background: #7f8c8d;
+    border-color: #95a5a6;
     cursor: not-allowed;
-    transform: none;
+    opacity: 0.7;
 }
 
-/* Messages */
+/* Message */
 .message {
     text-align: center;
-    margin-top: 1.5rem;
-    font-size: 1.3rem;
+    margin: 2rem 0;
+    font-size: 1.5rem;
     font-weight: bold;
-    min-height: 2rem;
+    color: var(--gold);
     padding: 1rem;
-    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(241, 196, 15, 0.3);
 }
 
-/* Styles pour les écrans moyens */
+/* Animations */
+@keyframes cardFlip {
+    from {
+        transform: rotateY(180deg);
+        opacity: 0;
+    }
+    to {
+        transform: rotateY(0);
+        opacity: 1;
+    }
+}
+
+/* Media Queries */
 @media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+
     .card {
         width: 90px;
         height: 120px;
     }
-    
+
     .controls {
         flex-direction: column;
         align-items: center;
     }
-    
+
     button {
         width: 100%;
         max-width: 300px;
     }
 }
 
-/* Styles pour les petits écrans */
 @media (max-width: 480px) {
     .container {
-        padding: 0 10px;
+        padding: 10px;
     }
 
     h1 {
-        font-size: 1.5rem;
-    }
-
-    .player-title {
-        font-size: 1.2rem;
+        font-size: 2rem;
     }
 
     .game-area {
         padding: 1rem;
     }
 
-    .dealer-area, .player-area {
-        padding: 1rem;
-    }
-
     .card {
         width: 70px;
-        height: 100px;
+        height: 105px;
     }
 
-    .card-value {
-        font-size: 1rem;
-    }
-
-    .card-suit {
-        font-size: 2rem;
+    .player-title {
+        font-size: 1.4rem;
     }
 
     .score {
-        font-size: 1rem;
+        font-size: 1.2rem;
     }
 
     button {
         font-size: 1rem;
-        padding: 0.6rem 1rem;
-    }
-
-    .message {
-        font-size: 1rem;
-        padding: 0.8rem;
+        padding: 0.8rem 1.5rem;
     }
 }
