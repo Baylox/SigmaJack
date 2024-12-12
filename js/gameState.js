@@ -10,9 +10,8 @@ export function getGame() {
 }
 
 /**
- * Met à jour l'interface utilisateur du jeu de Blackjack.
- *
- * @param {boolean} [hideSecondDealerCard=true] - Indique si la deuxième carte du croupier doit être cachée.
+ * Met à jour l'interface utilisateur du jeu
+ * @param {boolean} hideSecondDealerCard - Indique si la deuxième carte du croupier doit être cachée
  */
 export function updateUI(hideSecondDealerCard = true) {
     const playerCardsEl = document.getElementById('player-cards');
@@ -20,16 +19,19 @@ export function updateUI(hideSecondDealerCard = true) {
     const playerScoreEl = document.getElementById('player-score');
     const dealerScoreEl = document.getElementById('dealer-score');
     
+    // Afficher les cartes du joueur
     playerCardsEl.innerHTML = game.playerHand.map(card => 
         createCardElement(card)
     ).join('');
     
+    // Afficher les cartes du croupier
     dealerCardsEl.innerHTML = game.dealerHand.map((card, index) => 
         index === 1 && hideSecondDealerCard && !game.gameOver ? 
             createCardElement(card, true) : 
             createCardElement(card)
     ).join('');
     
+    // Calculer et afficher les scores
     const playerScore = game.calculateScore(game.playerHand);
     const dealerScore = hideSecondDealerCard && !game.gameOver ? 
         game.dealerHand[0].getScore() : 

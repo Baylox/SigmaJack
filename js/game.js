@@ -1,3 +1,4 @@
+//Contient la logique principale du jeu de Blackjack
 export class BlackjackGame {
     constructor(updateUI) {
         this.deck = null;
@@ -52,35 +53,14 @@ export class BlackjackGame {
     }
 
     async dealerPlay() {
-        const playerScore = this.calculateScore(this.playerHand);
         let dealerScore = this.calculateScore(this.dealerHand);
 
-        while (dealerScore < 21) {
-            // Si le joueur a plus de 16, le croupier essaie de le battre
-            if (playerScore > 16) {
-                if (dealerScore <= playerScore) {
-                    this.dealerHand.push(this.deck.draw());
-                    dealerScore = this.calculateScore(this.dealerHand);
-                    this.updateUI();
-                    await new Promise(resolve => setTimeout(resolve, 500));
-                } else {
-                    break; // Le croupier a dépassé le score du joueur
-                }
-            }
-            // Sinon, le croupier s'arrête à 17
-            else if (dealerScore < 17) {
-                this.dealerHand.push(this.deck.draw());
-                dealerScore = this.calculateScore(this.dealerHand);
-                this.updateUI();
-                await new Promise(resolve => setTimeout(resolve, 500));
-            } else {
-                break; // Le croupier a au moins 17
-            }
-
-            // Vérifier si le croupier a dépassé 21
-            if (dealerScore > 21) {
-                break;
-            }
+        // Le croupier tire des cartes tant que son score est inférieur à 17
+        while (dealerScore < 17) {
+            this.dealerHand.push(this.deck.draw());
+            dealerScore = this.calculateScore(this.dealerHand);
+            this.updateUI();
+            await new Promise(resolve => setTimeout(resolve, 500));
         }
     }
 
